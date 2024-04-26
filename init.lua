@@ -1,5 +1,6 @@
 -- local configs
-require("naivary.vim-options")
+require("naivary.vim_opt")
+require("naivary.key_maps")
 
 -- load plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -15,6 +16,5 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
-    { import = "plugins" }
+	{ import = "plugins" },
 })
-
