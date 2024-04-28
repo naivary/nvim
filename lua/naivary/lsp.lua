@@ -1,3 +1,5 @@
+local create_autocmd = require("util.autocmd")
+local create_augroup = require("util.augroup")
 local _, telescope = pcall(require, "telescope.builtin")
 
 local LSP = {}
@@ -7,7 +9,7 @@ LSP.servers = {
         settings = {
             Lua = {
                 runtime = {
-                    version = "LuaJIT",                          -- Lua version (LuaJIT for Neovim)
+                    version = "LuaJIT",                                         -- Lua version (LuaJIT for Neovim)
                     path = vim.split("?.lua;?/init.lua;" .. package.path, ";"), -- Setup your lua path
                 },
                 diagnostics = {
@@ -29,14 +31,36 @@ LSP.servers = {
     gopls = {
         settings = {
             gopls = {
-                analyses = {
-                    unusedparams = true,
-                },
+                allExperiments = true,
                 staticcheck = true,
                 gofumpt = true,
             },
         },
     },
+}
+
+-- formatters
+local formatters = {
+    -- this is using the gopls to automatically also ogranize the imports which can not be set via settings
+    go = function()
+        local params = vim.lsp.util.make_range_params()
+        params.context = { only = { "source.organizeImports" } }
+        -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+        -- machine and codebase, you may want longer. Add an additional
+        -- argument after params if you find that you have to write the file
+        -- twice for changes to be saved.
+        -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+        for cid, res in pairs(result or {}) do
+            for _, r in pairs(res.result or {}) do
+                if r.edit then
+                    local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                    vim.lsp.util.apply_workspace_edit(r.edit, enc)
+                end
+            end
+        end
+        vim.lsp.buf.format({ async = false })
+    end
 }
 
 function LSP.on_attach(_, bufnr)
@@ -46,10 +70,16 @@ function LSP.on_attach(_, bufnr)
         end
         require("util.keymap").map(mode, keys, func, { buffer = bufnr, desc = desc })
     end
-    -- mappings
-    map("n", "<leader>jf", function()
-        vim.lsp.buf.format()
-    end, "[F]ormat buffer")
+
+    -- auto formatting on save
+    create_autocmd("BufWritePre", {
+        group = create_augroup("LspFormatting", {}),
+        buffer = bufnr,
+        callback = function()
+            local format = formatters[vim.bo.filetype] or vim.lsp.buf.format
+            format()
+        end
+    })
 
     map("n", "<leader>jn", function()
         vim.lsp.buf.rename()
@@ -61,7 +91,7 @@ function LSP.on_attach(_, bufnr)
         vim.diagnostic.open_float()
     end, "Show [D]iagnostics")
 
-    -- map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+    map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
     -- map("n", "gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
     -- map("n", "<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
     map("n", "gd", function()
@@ -77,10 +107,10 @@ function LSP.on_attach(_, bufnr)
         telescope.lsp_references()
     end, "[G]oto [R]eferences")
 
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-    --map("n", "K", function()
-    --vim.lsp.buf.hover()
-    --end, "[H]over Documentation")
+    map("n", "K", function()
+        vim.lsp.buf.hover()
+    end, "[H]over Documentation")
+
     map("n", "<C-S-h>", function()
         vim.lsp.buf.signature_help()
     end, "Signature Documentation")
@@ -104,9 +134,19 @@ function LSP.on_attach(_, bufnr)
     map("n", "<leader>ws", function()
         telescope.lsp_dynamic_workspace_symbols()
     end, "[W]orkspace [S]ymbols")
-    -- map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-    -- map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-    -- map("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "[W]orkspace [L]ist Folders")
+
+    map("n", "<leader>se", function()
+        vim.diagnostic.open_float({ bufnr = bufnr })
+    end, "[S]how [E]rror")
+
+
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = false,
+            underline = true,
+            signs = true,
+        }
+    )
 end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

@@ -17,8 +17,8 @@
 ---@param opts AugroupOpts Dictionary Parameters
 ---@return integer id Integer id of the created group.
 ---@see vim.api.nvim_create_augroup
-local function nvim_create_augroup(name, opts)
+local function create_augroup(name, opts)
 	return vim.api.nvim_create_augroup(name, opts)
 end
 
-return nvim_create_augroup
+return create_augroup

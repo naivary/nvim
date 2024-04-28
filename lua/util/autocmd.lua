@@ -54,8 +54,8 @@
 ---@param opts AutocmdOpts Options dict
 ---@return number id Autocommand id
 ---@see vim.api.nvim_create_autocmd
-local function nvim_create_autocmd(event, opts)
+local function create_autocmd(event, opts)
 	return vim.api.nvim_create_autocmd(event, opts)
 end
 
-return nvim_create_autocmd
+return create_autocmd
