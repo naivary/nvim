@@ -1,6 +1,7 @@
 -- local configs
-require("naivary.vim_opt")
-require("naivary.key_maps")
+require("naivary.vimopt")
+require("naivary.keymaps")
+require("naivary.diagnostics")
 
 -- load plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

@@ -1,5 +1,5 @@
 local function config()
-    local nmap = require("util.key_maps").nmap
+    local nmap = require("util.keymaps").nmap
 	local builtin = require("telescope.builtin")
 	local actions = require("telescope.actions")
 	nmap("<leader>ff", builtin.find_files, { desc = "open telescope UI" })
