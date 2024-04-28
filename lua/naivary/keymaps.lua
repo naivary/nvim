@@ -1,8 +1,8 @@
-local map = require("util.keymaps").map
-local nmap = require("util.keymaps").nmap
-local imap = require("util.keymaps").imap
-local vmap = require("util.keymaps").vmap
-local xmap = require("util.keymaps").xmap
+local map = require("util.keymap").map
+local nmap = require("util.keymap").nmap
+local imap = require("util.keymap").imap
+local vmap = require("util.keymap").vmap
+local xmap = require("util.keymap").xmap
 
 imap("jk", "<Esc>", { desc = "close insert mode"})
 

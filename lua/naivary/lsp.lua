@@ -44,7 +44,7 @@ function LSP.on_attach(_, bufnr)
         if desc then
             desc = "LSP: " .. desc
         end
-        require("util.keymaps").map(mode, keys, func, { buffer = bufnr, desc = desc })
+        require("util.keymap").map(mode, keys, func, { buffer = bufnr, desc = desc })
     end
     -- mappings
     map("n", "<leader>jf", function()
