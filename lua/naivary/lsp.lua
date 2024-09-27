@@ -1,6 +1,5 @@
-local create_autocmd = require("util.autocmd")
-local create_augroup = require("util.augroup")
 local _, telescope = pcall(require, "telescope.builtin")
+local formatter = require("naivary.formatter")
 
 local LSP = {}
 
@@ -28,6 +27,7 @@ LSP.servers = {
             },
         },
     },
+
     gopls = {
         settings = {
             gopls = {
@@ -37,33 +37,12 @@ LSP.servers = {
             },
         },
     },
-}
 
--- formatters
-local formatters = {
-    -- this is using the gopls to automatically also ogranize the imports which can not be set via settings
-    go = function()
-        local params = vim.lsp.util.make_range_params()
-        params.context = { only = { "source.organizeImports" } }
-        -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-        -- machine and codebase, you may want longer. Add an additional
-        -- argument after params if you find that you have to write the file
-        -- twice for changes to be saved.
-        -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-        for cid, res in pairs(result or {}) do
-            for _, r in pairs(res.result or {}) do
-                if r.edit then
-                    local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-                    vim.lsp.util.apply_workspace_edit(r.edit, enc)
-                end
-            end
-        end
-        vim.lsp.buf.format({ async = false })
-    end
+    marksman = {}
 }
 
 function LSP.on_attach(_, bufnr)
+    local lint = require("lint")
     local map = function(mode, keys, func, desc)
         if desc then
             desc = "LSP: " .. desc
@@ -71,15 +50,14 @@ function LSP.on_attach(_, bufnr)
         require("util.keymap").map(mode, keys, func, { buffer = bufnr, desc = desc })
     end
 
-    -- auto formatting on save
-    create_autocmd("BufWritePre", {
-        group = create_augroup("LspFormatting", {}),
-        buffer = bufnr,
-        callback = function()
-            local format = formatters[vim.bo.filetype] or vim.lsp.buf.format
-            format()
-        end
-    })
+    map("n", "<leader>jf", function()
+        local format = formatter[vim.bo.filetype] or vim.lsp.buf.format
+        format()
+    end, "[F]ormat")
+
+    map("n", "<leader>jl", function()
+        lint.try_lint()
+    end, "[L]int")
 
     map("n", "<leader>jn", function()
         vim.lsp.buf.rename()
@@ -92,8 +70,6 @@ function LSP.on_attach(_, bufnr)
     end, "Show [D]iagnostics")
 
     map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-    -- map("n", "gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-    -- map("n", "<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
     map("n", "gd", function()
         telescope.lsp_definitions()
     end, "[G]oto [D]efinition")
@@ -134,11 +110,6 @@ function LSP.on_attach(_, bufnr)
     map("n", "<leader>ws", function()
         telescope.lsp_dynamic_workspace_symbols()
     end, "[W]orkspace [S]ymbols")
-
-    map("n", "<leader>se", function()
-        vim.diagnostic.open_float({ bufnr = bufnr })
-    end, "[S]how [E]rror")
-
 
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {

@@ -26,6 +26,7 @@ return {
         { "folke/neodev.nvim", opts = {} },
         "nvim-telescope/telescope.nvim",
         "j-hui/fidget.nvim",
+        "mhartington/formatter.nvim"
     },
     config = config,
 }

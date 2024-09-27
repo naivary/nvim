@@ -13,7 +13,7 @@ local function config()
         },
         mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-n>'] = cmp.mapping.scroll_docs(4),
             ['<leader>sc'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
             ['<CR>'] = cmp.mapping.confirm({ select = true }),
@@ -30,10 +30,6 @@ end
 
 return {
     "hrsh7th/nvim-cmp",
-    event = {
-        "InsertEnter",
-        "CmdlineEnter",
-    },
     dependencies = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
