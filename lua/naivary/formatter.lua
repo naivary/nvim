@@ -1,4 +1,3 @@
-local fmt = require("formatter.filetypes")
 local formatter = {}
 
 formatter.go = function()
@@ -19,10 +18,6 @@ formatter.go = function()
         end
     end
     vim.lsp.buf.format({ async = false })
-end
-
-formatter.markdown = function()
-    fmt.markdown.denofmt()
 end
 
 return formatter
