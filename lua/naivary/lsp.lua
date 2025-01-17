@@ -38,7 +38,7 @@ LSP.servers = {
         },
     },
 
-    denols = {},
+    marksman = {}
 }
 
 function LSP.on_attach(_, bufnr)
