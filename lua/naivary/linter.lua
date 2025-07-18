@@ -1,7 +1,8 @@
 local linter = {}
 
 linter.markdown = { "vale", }
-linter.go = { "golangcilint", }
+linter.go = { "staticcheck", }
 linter.lua = { "luacheck", }
+linter.proto = { "buf", }
 
 return linter

@@ -38,11 +38,15 @@ LSP.servers = {
         },
     },
 
-    marksman = {}
+    marksman = {},
+    buf_ls = {},
+    pylsp = {
+        settings = {},
+        filetypes = { "python", "py" }
+    }
 }
 
 function LSP.on_attach(_, bufnr)
-    local lint = require("lint")
     local map = function(mode, keys, func, desc)
         if desc then
             desc = "LSP: " .. desc
@@ -56,29 +60,40 @@ function LSP.on_attach(_, bufnr)
     end, "[F]ormat")
 
     map("n", "<leader>jl", function()
-        lint.try_lint()
-    end, "[L]int")
+        require("lint").try_lint()
+    end, "[F]ormat")
+
 
     map("n", "<leader>jn", function()
         vim.lsp.buf.rename()
     end, "Re[n]ame")
+
     map("n", "<leader>ja", function()
         vim.lsp.buf.code_action()
     end, "Code [A]ction")
+
     map("n", "<leader>jd", function()
         vim.diagnostic.open_float()
-    end, "Show [D]iagnostics")
+    end, "Show [D]iagnostic")
+
+    map("n", "<leader>sd", function()
+        telescope.diagnostics()
+    end, "[S]how [D]iagnostics")
 
     map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+
     map("n", "gd", function()
         telescope.lsp_definitions()
     end, "[G]oto [D]efinition")
+
     map("n", "gI", function()
         telescope.lsp_implementations()
     end, "[G]oto [I]mplementation")
+
     map("n", "gD", function()
         vim.lsp.buf.declaration()
     end, "[G]oto [D]eclaration")
+
     map("n", "gr", function()
         telescope.lsp_references()
     end, "[G]oto [R]eferences")
@@ -91,12 +106,6 @@ function LSP.on_attach(_, bufnr)
         vim.lsp.buf.signature_help()
     end, "Signature Documentation")
 
-    map("n", "<leader>nd", function()
-        vim.diagnostic.goto_next()
-    end, "[N]ext [D]iagnostic")
-    map("n", "<leader>bd", function()
-        vim.diagnostic.goto_prev()
-    end, "previous [D]iagnostic")
     map("n", "<leader>ne", function()
         telescope.diagnostics({ severity_limit = 1 })
     end, "[N]ext [E]rror")
