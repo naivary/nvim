@@ -37,13 +37,7 @@ LSP.servers = {
             },
         },
     },
-
-    marksman = {},
     buf_ls = {},
-    pylsp = {
-        settings = {},
-        filetypes = { "python", "py" }
-    }
 }
 
 function LSP.on_attach(_, bufnr)
