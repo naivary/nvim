@@ -24,7 +24,8 @@ local function toggle_telescope(harpoon_files)
     }):find()
 end
 
-local function key_maps(harpoon)
+local function key_maps()
+    local harpoon = require("harpoon")
     map("n", "<C-e>", function() toggle_telescope(harpoon:list()) end, "Open harpoon window")
 
     map("n", "<leader>a", function() harpoon:list():add() end)

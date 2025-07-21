@@ -1,5 +1,5 @@
 local _, telescope = pcall(require, "telescope.builtin")
-local formatter = require("naivary.formatter")
+--local formatter = require('naivary.formatter')
 
 local LSP = {}
 
@@ -28,16 +28,7 @@ LSP.servers = {
         },
     },
 
-    gopls = {
-        settings = {
-            gopls = {
-                allExperiments = true,
-                staticcheck = true,
-                gofumpt = true,
-                usePlaceholders = true
-            },
-        },
-    },
+    gopls = {},
     buf_ls = {},
 }
 
@@ -48,6 +39,11 @@ function LSP.on_attach(_, bufnr)
         end
         require("util.keymap").map(mode, keys, func, { buffer = bufnr, desc = desc })
     end
+
+    -- map("n", "<leader>jf", function()
+    --     local format = formatter[vim.bo.filetype] or vim.lsp.buf.format
+    --     format()
+    -- end, "[F]ormat")
 
     map("n", "<leader>jn", function()
         vim.lsp.buf.rename()
@@ -94,6 +90,7 @@ function LSP.on_attach(_, bufnr)
     map("n", "<leader>ne", function()
         telescope.diagnostics({ severity_limit = 1 })
     end, "[N]ext [E]rror")
+
     map("n", "<leader>be", function()
         telescope.diagnostics({ severity_limit = 1 })
     end, "previous [E]rror")
@@ -105,14 +102,6 @@ function LSP.on_attach(_, bufnr)
     map("n", "<leader>ws", function()
         telescope.lsp_dynamic_workspace_symbols()
     end, "[W]orkspace [S]ymbols")
-
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = false,
-            underline = true,
-            signs = true,
-        }
-    )
 end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

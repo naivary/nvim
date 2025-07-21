@@ -1,6 +1,16 @@
 local function config()
     local conform = require("conform")
     conform.setup({
+        formatters = {
+            ['goimports-reviser'] = {
+                args = {
+                    '-rm-unused',
+                    '-set-alias',
+                    '-format',
+                    '$FILENAME'
+                }
+            }
+        },
         formatters_by_ft = {
             go = { "goimports-reviser", "gofumpt" },
             lua = { "stylua" },

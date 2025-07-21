@@ -1,6 +1,14 @@
 -- [Signs](https://github.com/lucax88x/configs/blob/master/dotfiles/.config/nvim/lua/lt/lsp/init.lua)
 
 --[[      󰝤   󰅚 󰀪 󰌶 ]]
+--
+
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    severity_sort = true,
+})
 
 local column_signs = {
     { name = "DiagnosticSignError", text = "󰅚" },
