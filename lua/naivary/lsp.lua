@@ -34,6 +34,7 @@ LSP.servers = {
                 allExperiments = true,
                 staticcheck = true,
                 gofumpt = true,
+                usePlaceholders = true
             },
         },
     },
@@ -47,16 +48,6 @@ function LSP.on_attach(_, bufnr)
         end
         require("util.keymap").map(mode, keys, func, { buffer = bufnr, desc = desc })
     end
-
-    map("n", "<leader>jf", function()
-        local format = formatter[vim.bo.filetype] or vim.lsp.buf.format
-        format()
-    end, "[F]ormat")
-
-    map("n", "<leader>jl", function()
-        require("lint").try_lint()
-    end, "[F]ormat")
-
 
     map("n", "<leader>jn", function()
         vim.lsp.buf.rename()
@@ -110,6 +101,7 @@ function LSP.on_attach(_, bufnr)
     map("n", "<leader>ds", function()
         telescope.lsp_document_symbols()
     end, "[D]ocument [S]ymbols")
+
     map("n", "<leader>ws", function()
         telescope.lsp_dynamic_workspace_symbols()
     end, "[W]orkspace [S]ymbols")
