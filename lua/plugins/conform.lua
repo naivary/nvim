@@ -12,7 +12,7 @@ local function config()
 			},
 		},
 		formatters_by_ft = {
-			go = { "goimports-reviser", "gofumpt" },
+			go = { "golangci-lint" },
 			lua = { "stylua" },
 			markdown = { "deno_fmt" },
 		},
