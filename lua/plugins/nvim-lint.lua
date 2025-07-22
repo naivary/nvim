@@ -1,23 +1,25 @@
 local function config()
-    local lint = require("lint")
-    lint.linters_by_ft = {
-        go = { "golangcilint" }
-    }
+	local lint = require("lint")
+	pcall(require, "naivary.linter")
 
-    local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-        group = lint_augroup,
-        callback = function()
-            lint.try_lint()
-        end,
-    })
+	lint.linters_by_ft = {
+		go = { "golangcilint" },
+	}
 
-    vim.keymap.set("n", "<leader>ll", function()
-        lint.try_lint()
-    end, { desc = "Trigger linting for current file" })
+	local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+	vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+		group = lint_augroup,
+		callback = function()
+			lint.try_lint()
+		end,
+	})
+
+	vim.keymap.set("n", "<leader>lf", function()
+		lint.try_lint()
+	end, { desc = "Trigger linting for current file" })
 end
 
 return {
-    "mfussenegger/nvim-lint",
-    config = config,
+	"mfussenegger/nvim-lint",
+	config = config,
 }
