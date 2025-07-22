@@ -14,6 +14,7 @@ local function config()
 		formatters_by_ft = {
 			go = { "goimports-reviser", "gofumpt" },
 			lua = { "stylua" },
+			markdown = { "deno_fmt" },
 		},
 	})
 
