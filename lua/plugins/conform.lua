@@ -11,7 +11,7 @@ local function config()
 	vim.keymap.set("n", "<leader>jf", function()
 		conform.format({
 			lsp_format = "fallback",
-			timeout_ms = 500,
+			timeout_ms = 1000,
 			async = false,
 		})
 	end, { desc = "[F]ormat" })
