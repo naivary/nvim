@@ -1,2 +1,7 @@
-## This is my official nvim-configuration
-how to check this 
+# Install NVIM
+
+[Prerequirements](https://github.com/neovim/neovim/blob/master/BUILD.md#build-prerequisites)
+
+[Build](https://github.com/neovim/neovim/blob/master/BUILD.md)
+
+
