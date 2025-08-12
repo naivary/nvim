@@ -6,6 +6,7 @@ local function config()
             lua = { "stylua" },
             markdown = { "deno_fmt" },
             json = { "jq" },
+            yaml = { "yamlfmt" },
         },
     })
 
