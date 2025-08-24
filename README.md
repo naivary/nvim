@@ -9,3 +9,11 @@
 markdown = vale
 
 
+## This is my official nvim-configuration
+how to check this 
+
+## Sync Vale
+
+```bash
+~/.local/share/nvim/mason/packages/vale/vale --config=$HOME/.config/vale/.vale.ini sync
+```

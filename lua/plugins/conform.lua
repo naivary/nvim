@@ -7,9 +7,7 @@ local function config()
             markdown = { "deno_fmt" },
             json = { "jq" },
             yaml = { "yamlfmt" },
-        },
     })
-
     vim.keymap.set("n", "<leader>jf", function()
         conform.format({
             lsp_format = "fallback",
