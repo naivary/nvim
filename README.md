@@ -4,4 +4,8 @@
 
 [Build](https://github.com/neovim/neovim/blob/master/BUILD.md)
 
+## Linters
+
+markdown = vale
+
 
