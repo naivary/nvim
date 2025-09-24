@@ -7,7 +7,8 @@ local function config()
             markdown = { "deno_fmt" },
             json = { "jq" },
             yaml = { "yamlfmt" },
-        }
+            py = { "black" },
+        },
     })
 
     vim.keymap.set("n", "<leader>jf", function()
