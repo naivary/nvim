@@ -14,5 +14,6 @@ golangcilint.args = {
 
 Linter.go = { "golangcilint" }
 Linter.markdown = { "vale" }
+Linter.py = { "ruff" }
 
 return Linter
