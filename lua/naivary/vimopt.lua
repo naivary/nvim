@@ -9,13 +9,12 @@ vim.opt.softtabstop = 4       -- tab: convert tab to spaces
 vim.opt.shiftwidth = 4        -- tab: indentation length
 
 vim.opt.errorbells = false    -- audio: no bells
-vim.opt.tw = 80               -- linebreak after 80
 
 vim.opt.swapfile = false      -- swap: buffer in memory not swap
 vim.opt.backup = false        -- backup: no backup of edited file
 vim.opt.undofile = true       -- backup: store undo buffer in file
 
 local home = require("util.paths").paths.home
-vim.opt.undodir = home .. "/.vim/undo"  -- backup: store undofiles in ~/.vim/undo
+vim.opt.undodir = home .. "/.vim/undo" -- backup: store undofiles in ~/.vim/undo
 
-vim.opt.clipboard = "unnamedplus"       -- clipboard: shared with OS
+vim.opt.clipboard = "unnamedplus"      -- clipboard: shared with OS

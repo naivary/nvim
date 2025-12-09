@@ -8,7 +8,7 @@ LSP.servers = {
         settings = {
             Lua = {
                 runtime = {
-                    version = "LuaJIT",                          -- Lua version (LuaJIT for Neovim)
+                    version = "LuaJIT",                                         -- Lua version (LuaJIT for Neovim)
                     path = vim.split("?.lua;?/init.lua;" .. package.path, ";"), -- Setup your lua path
                 },
                 diagnostics = {
@@ -32,6 +32,7 @@ LSP.servers = {
     buf_ls = {},
     marksman = {},
     pylsp = {},
+    terraformls = {},
 }
 
 function LSP.on_attach(_, bufnr)

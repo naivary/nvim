@@ -8,6 +8,7 @@ local function config()
             json = { "jq" },
             yaml = { "yamlfmt" },
             py = { "black" },
+            tf = { "terraform" },
         },
     })
 
