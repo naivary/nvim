@@ -1,5 +1,4 @@
 local _, telescope = pcall(require, "telescope.builtin")
---local formatter = require('naivary.formatter')
 
 local LSP = {}
 
@@ -31,7 +30,32 @@ LSP.servers = {
     gopls = {},
     buf_ls = {},
     marksman = {},
-    pylsp = {},
+    ruff = {
+        filetypes = { "python" },
+        on_attach = function(client, bufnr)
+            -- Keep your original on_attach
+            if LSP.on_attach then
+                LSP.on_attach(client, bufnr)
+            end
+
+            -- Disable completion and hover (Pyright handles them)
+            client.server_capabilities.completionProvider = false
+            client.server_capabilities.hoverProvider = false
+        end,
+    },
+    pyright = {
+        filetypes = { "python" },
+        settings = {
+            pyright = {
+                disableOrganizeImports = true, -- Using Ruff
+            },
+            python = {}
+            --     analysis = {
+            --         ignore = { '*' }, -- Using Ruff
+            --     },
+            -- },
+        },
+    },
     terraformls = {},
 }
 
@@ -42,11 +66,6 @@ function LSP.on_attach(_, bufnr)
         end
         require("util.keymap").map(mode, keys, func, { buffer = bufnr, desc = desc })
     end
-
-    -- map("n", "<leader>jf", function()
-    --     local format = formatter[vim.bo.filetype] or vim.lsp.buf.format
-    --     format()
-    -- end, "[F]ormat")
 
     map("n", "<leader>jn", function()
         vim.lsp.buf.rename()

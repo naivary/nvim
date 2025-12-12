@@ -7,8 +7,12 @@ local function config()
             markdown = { "deno_fmt" },
             json = { "jq" },
             yaml = { "yamlfmt" },
-            py = { "black" },
-            tf = { "terraform" },
+            python = {
+                "ruff_fix",
+                "ruff_format",
+                "ruff_organize_imports"
+            },
+            terraform = { "terraform" },
         },
     })
 

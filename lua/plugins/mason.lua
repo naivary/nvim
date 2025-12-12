@@ -13,14 +13,18 @@ local function config()
         ensure_installed = vim.tbl_keys(lsp_config.servers),
         automatic_installation = false,
     })
-    require("mason-lspconfig").setup_handlers({
-        function(server_name)
-            require("lspconfig")[server_name].setup({
-                on_attach = lsp_config.on_attach,
-                capabilities = lsp_config.capabilities,
-            })
-        end,
+
+    vim.lsp.config("*", {
+        capabilities = lsp_config.capabilities,
     })
+
+    for lang_server, settings in pairs(lsp_config.servers) do
+        if not settings.on_attach then
+            settings.on_attach = lsp_config.on_attach
+        end
+        vim.lsp.config(lang_server, settings)
+        vim.lsp.enable(lang_server)
+    end
     require("fidget").setup({})
 end
 

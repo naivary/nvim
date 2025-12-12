@@ -14,6 +14,7 @@ golangcilint.args = {
 
 Linter.go = { "golangcilint" }
 Linter.markdown = { "vale" }
-Linter.py = { "ruff" }
+Linter.python = { "ruff" }
+Linter.terraform = { "tflint" }
 
 return Linter
