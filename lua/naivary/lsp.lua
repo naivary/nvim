@@ -49,11 +49,11 @@ LSP.servers = {
             pyright = {
                 disableOrganizeImports = true, -- Using Ruff
             },
-            python = {}
-            --     analysis = {
-            --         ignore = { '*' }, -- Using Ruff
-            --     },
-            -- },
+            python = {
+                analysis = {
+                    ignore = { '*' },
+                }
+            }
         },
     },
     terraformls = {},
