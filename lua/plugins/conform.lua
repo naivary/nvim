@@ -1,21 +1,9 @@
 local function config()
     local conform = require("conform")
+    local formatter = require("naivary.formatter")
     conform.setup({
-        formatters_by_ft = {
-            go = { "golangci-lint" },
-            lua = { "stylua" },
-            markdown = { "deno_fmt" },
-            json = { "jq" },
-            yaml = { "yamlfmt" },
-            python = {
-                "ruff_fix",
-                "ruff_format",
-                "ruff_organize_imports"
-            },
-            terraform = { "terraform" },
-        },
+        formatters_by_ft = formatter
     })
-
     vim.keymap.set("n", "<leader>jf", function()
         conform.format({
             lsp_format = "fallback",

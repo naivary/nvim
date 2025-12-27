@@ -57,6 +57,7 @@ LSP.servers = {
         },
     },
     terraformls = {},
+    dockerls = {}
 }
 
 function LSP.on_attach(_, bufnr)
