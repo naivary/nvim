@@ -43,18 +43,8 @@ LSP.servers = {
             client.server_capabilities.hoverProvider = false
         end,
     },
-    pyright = {
-        filetypes = { "python" },
-        settings = {
-            pyright = {
-                disableOrganizeImports = true, -- Using Ruff
-            },
-            python = {
-                analysis = {
-                    ignore = { '*' },
-                }
-            }
-        },
+    ty = {
+        settings = {}
     },
     terraformls = {},
     dockerls = {}
