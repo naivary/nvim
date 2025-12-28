@@ -38,13 +38,18 @@ LSP.servers = {
                 LSP.on_attach(client, bufnr)
             end
 
-            -- Disable completion and hover (Pyright handles them)
+            -- Disable completion and hover ('ty' handles them)
             client.server_capabilities.completionProvider = false
             client.server_capabilities.hoverProvider = false
         end,
     },
     ty = {
-        settings = {}
+        settings = {
+            filetypes = { "python" },
+            completions = {
+                autoImport = true
+            }
+        }
     },
     terraformls = {},
     dockerls = {}
