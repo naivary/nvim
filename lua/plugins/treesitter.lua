@@ -1,6 +1,6 @@
 local function config()
 	local ts = require("nvim-treesitter")
-	ts.install({
+	local grammars = {
 		"svelte",
 		"html",
 		"javascript",
@@ -8,17 +8,10 @@ local function config()
 		"css",
 		"go",
 		"python",
-	})
+	}
+	ts.install(grammars)
 	vim.api.nvim_create_autocmd("FileType", {
-		pattern = {
-			"svelte",
-			"javascript",
-			"go",
-			"python",
-			"typescript",
-			"css",
-			"html",
-		},
+		pattern = grammars,
 		callback = function()
 			vim.treesitter.start()
 		end,
