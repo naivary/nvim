@@ -13,8 +13,8 @@ Formatter.python = {
 }
 Formatter.sh = { "shfmt" }
 
-Formatter.javascript = { "prettier" }
-Formatter.typescript = { "prettier" }
-Formatter.svelte = { "prettier" }
+Formatter.javascript = { "prettierd" }
+Formatter.typescript = { "prettierd" }
+Formatter.svelte = { "prettierd" }
 
 return Formatter

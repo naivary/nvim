@@ -33,7 +33,12 @@ LSP.servers = {
 	ty = {},
 	terraformls = {},
 	dockerls = {},
-	svelte = {},
+	svelte = {
+		filetypes = { "svelte" },
+		settings = {
+			root_markers = { "package.json" },
+		},
+	},
 	vtsls = {},
 }
 
