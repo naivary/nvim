@@ -1,4 +1,14 @@
 local function config()
+	local ts = require("nvim-treesitter")
+	ts.install({
+		"svelte",
+		"html",
+		"javascript",
+		"typescript",
+		"css",
+		"go",
+		"python",
+	})
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = {
 			"svelte",
