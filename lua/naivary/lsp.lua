@@ -45,6 +45,9 @@ LSP.servers = {
 		filetypes = { "css" },
 		root_markers = { "package.json" },
 	},
+	bashls = {
+		filetypes = { "sh" },
+	},
 }
 
 function LSP.on_attach(_, bufnr)
