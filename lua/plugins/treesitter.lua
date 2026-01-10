@@ -6,8 +6,9 @@ local function config()
 		"javascript",
 		"typescript",
 		"css",
-		"go",
 		"python",
+		"gomod",
+		"gosum",
 	}
 	ts.install(grammars)
 	vim.api.nvim_create_autocmd("FileType", {

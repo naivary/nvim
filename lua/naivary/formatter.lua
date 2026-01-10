@@ -3,7 +3,6 @@ local Formatter = {}
 Formatter.go = { "golangci-lint" }
 Formatter.lua = { "stylua" }
 Formatter.markdown = { "deno_fmt" }
-Formatter.terraform = { "terraform" }
 Formatter.json = { "jq" }
 Formatter.yaml = { "yamlfmt" }
 Formatter.python = {
@@ -16,5 +15,7 @@ Formatter.sh = { "shfmt" }
 Formatter.javascript = { "prettierd" }
 Formatter.typescript = { "prettierd" }
 Formatter.svelte = { "prettierd" }
+
+Formatter.sql = { "pg_format" }
 
 return Formatter

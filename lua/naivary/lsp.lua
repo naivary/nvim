@@ -35,11 +35,12 @@ LSP.servers = {
 	dockerls = {},
 	svelte = {
 		filetypes = { "svelte" },
-		settings = {
-			root_markers = { "package.json" },
-		},
+		root_markers = { "package.json" },
 	},
 	vtsls = {},
+	postgres_lsp = {
+		root_markers = { ".git" },
+	},
 }
 
 function LSP.on_attach(_, bufnr)
