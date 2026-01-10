@@ -7,6 +7,7 @@ local function config()
 		"typescript",
 		"css",
 		"python",
+		"go",
 		"gomod",
 		"gosum",
 	}
