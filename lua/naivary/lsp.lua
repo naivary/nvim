@@ -41,6 +41,10 @@ LSP.servers = {
 	postgres_lsp = {
 		root_markers = { ".git" },
 	},
+	tailwindcss = {
+		filetypes = { "css" },
+		root_markers = { "package.json" },
+	},
 }
 
 function LSP.on_attach(_, bufnr)
