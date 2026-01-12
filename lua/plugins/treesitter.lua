@@ -10,7 +10,8 @@ local function config()
 		"go",
 		"gomod",
 		"gosum",
-        "bash"
+		"bash",
+		"sql",
 	}
 	ts.install(grammars)
 	vim.api.nvim_create_autocmd("FileType", {
