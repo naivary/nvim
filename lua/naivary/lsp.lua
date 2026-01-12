@@ -29,7 +29,9 @@ LSP.servers = {
 
 	gopls = {},
 	marksman = {},
-	ty = {},
+	ty = {
+		root_markers = { "pyproject.toml" },
+	},
 	terraformls = {},
 	dockerls = {},
 	svelte = {
