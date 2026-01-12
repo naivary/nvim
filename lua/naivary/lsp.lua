@@ -29,7 +29,6 @@ LSP.servers = {
 
 	gopls = {},
 	marksman = {},
-	ruff = {},
 	ty = {},
 	terraformls = {},
 	dockerls = {},
