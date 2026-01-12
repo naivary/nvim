@@ -16,14 +16,11 @@ local function config()
 
 	vim.lsp.config("*", {
 		capabilities = lsp_config.capabilities,
+		on_attach = lsp_config.on_attach,
 	})
 
 	for lang_server, settings in pairs(lsp_config.servers) do
-		if not settings.on_attach then
-			settings.on_attach = lsp_config.on_attach
-		end
 		vim.lsp.config(lang_server, settings)
-		vim.lsp.enable(lang_server)
 	end
 	require("fidget").setup({})
 end
