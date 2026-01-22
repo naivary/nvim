@@ -4,6 +4,10 @@
 
 [Build](https://github.com/neovim/neovim/blob/master/BUILD.md)
 
+## Tree Sitter
+
+For Tree Sitter you have to install the tree-sitter-cli
+
 ## Linters
 
 markdown = vale
