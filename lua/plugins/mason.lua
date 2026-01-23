@@ -14,12 +14,11 @@ local function config()
         automatic_installation = false,
     })
 
-    vim.lsp.config("*", {
-        capabilities = lsp_config.capabilities,
-        on_attach = lsp_config.on_attach,
-    })
-    for lang_server, settings in pairs(lsp_config.servers) do
-        vim.lsp.config(lang_server, settings)
+    for lang_server, opts in pairs(lsp_config.servers) do
+        vim.lsp.config(lang_server, vim.tbl_extend("force", {
+            capabilities = lsp_config.capabilities,
+            on_attach = lsp_config.on_attach,
+        }, opts))
         vim.lsp.enable(lang_server)
     end
     require("fidget").setup({})

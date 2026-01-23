@@ -26,8 +26,16 @@ LSP.servers = {
             },
         },
     },
-
-    gopls = {},
+    gopls = {
+        root_markers = { "go.mod" },
+        settings = {
+            gopls = {
+                staticcheck        = true,
+                gofumpt            = true,
+                templateExtensions = { "gotmpl" }
+            }
+        }
+    },
     marksman = {},
     ty = {
         root_markers = { "pyproject.toml" },
@@ -121,6 +129,5 @@ end
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 LSP.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-LSP.servers.svelte.on_attach = LSP.on_attach
 
 return LSP

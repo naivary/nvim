@@ -12,9 +12,9 @@ For Tree Sitter you have to install the tree-sitter-cli
 
 markdown = vale
 
-
 ## This is my official nvim-configuration
-how to check this 
+
+how to check this
 
 ## Sync Vale
 

@@ -10,6 +10,7 @@ local function config()
         "go",
         "gomod",
         "gosum",
+        "gotmpl",
         "bash",
         "sql",
     }
