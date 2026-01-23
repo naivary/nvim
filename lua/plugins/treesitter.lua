@@ -15,6 +15,16 @@ local function config()
         "sql",
     }
     ts.install(grammars)
+    vim.filetype.add({
+        extension = {
+            gotmpl = 'gotmpl',
+        },
+        pattern = {
+            [".*/templates/.*%.tpl"] = "helm",
+            [".*/templates/.*%.ya?ml"] = "helm",
+            ["helmfile.*%.ya?ml"] = "helm",
+        },
+    })
     vim.api.nvim_create_autocmd("FileType", {
         pattern = grammars,
         callback = function()
