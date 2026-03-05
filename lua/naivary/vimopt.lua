@@ -18,3 +18,4 @@ local home = require("util.paths").paths.home
 vim.opt.undodir = home .. "/.vim/undo" -- backup: store undofiles in ~/.vim/undo
 
 vim.opt.clipboard = "unnamedplus"      -- clipboard: shared with OS
+vim.opt.fixendofline = false           -- dont add new line at the end of the file
