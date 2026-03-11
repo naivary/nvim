@@ -12,7 +12,7 @@ ConformFormatter.python     = {
 
 ConformFormatter.sh         = { "shfmt" }
 
-ConformFormatter.yaml       = { "prettierd" }
+ConformFormatter.yaml       = { "yamlfmt" }
 ConformFormatter.javascript = { "prettierd" }
 ConformFormatter.typescript = { "prettierd" }
 ConformFormatter.svelte     = { "prettierd" }

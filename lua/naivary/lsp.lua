@@ -57,9 +57,6 @@ LSP.servers = {
     bashls = {
         filetypes = { "sh" },
     },
-    yamlls = {
-        filetypes = { "yaml" },
-    },
 }
 
 function LSP.on_attach(_, bufnr)
